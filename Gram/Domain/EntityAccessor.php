@@ -40,7 +40,7 @@ trait EntityAccessor
         foreach ($md->validators as $v) {
             $v->validate($castValue);
         }
-        
+
         $methodName = 'set' . ucfirst($name);
         if (method_exists($this, $methodName)) {
             return $this->$methodName($castValue);
