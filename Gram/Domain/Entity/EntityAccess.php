@@ -1,21 +1,31 @@
 <?php
 
-namespace Gram\Domain;
+namespace Gram\Domain\Entity;
 
+use Gram\Domain\Type;
 
-trait EntityAccessor
+/**
+ * Class EntityAccess
+ *
+ * @package Gram\Domain\Traits
+ */
+abstract class EntityAccess extends EntityMapping
 {
-    use EntityMapping;
+    private $_ps;
 
+    /**
+     * @param $name
+     *
+     * @return null
+     * @throws \Exception
+     */
     function __get($name)
     {
         $md = static::getMetadata();
-        if (!isset($md[$name])) {
+        if (!isset($md->properties[$name])) {
             throw new \Exception("试图访问未定义的属性“$name”");
         }
-        if (!$md->readable) {
-            throw new \Exception("试图对只写属性“$name”进行读取操作");
-        }
+
         $methodName = 'get' . ucfirst($name);
         if (method_exists($this, $methodName)) {
             return $this->$methodName();
@@ -23,21 +33,27 @@ trait EntityAccessor
         return self::_saveGet($this->_ps, $name);
     }
 
+    /**
+     * @param $name
+     * @param $value
+     *
+     * @return mixed
+     * @throws \Exception
+     */
     function __set($name, $value)
     {
         $md = static::getMetadata();
-        if (!isset($md[$name])) {
+        if (!isset($md->properties[$name])) {
             throw new \Exception("试图访问未定义的属性“$name”");
         }
-        if (is_null($md->type)) {
-            throw new \Exception("未设置属性“$name”的类型");
-        }
-        if (!$md->writable) {
-            throw new \Exception("试图对只读属性“$name”进行写入操作");
+
+        $m = $md->properties[$name];
+        if (is_null($m->type)) {
+            throw new \Exception("未定义属性“$name”的类型");
         }
 
-        $castValue = Type::convert($value, $md->type);
-        foreach ($md->validators as $v) {
+        $castValue = Type::convert($value, $m->type);
+        foreach ($m->validators as $v) {
             $v->validate($castValue);
         }
 
@@ -45,7 +61,7 @@ trait EntityAccessor
         if (method_exists($this, $methodName)) {
             return $this->$methodName($castValue);
         } else {
-            $this->_properties[$name] = $castValue;
+            $this->_ps[$name] = $castValue;
         }
     }
 
