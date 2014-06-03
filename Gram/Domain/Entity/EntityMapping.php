@@ -7,7 +7,7 @@ use Gram\Domain\Mapping\CacheMapping;
 use Gram\Domain\Mapping\Metadata;
 use Gram\Domain\Mapping\PropertyMapping;
 use Gram\Domain\IShardStrategy;
-use Gram\Domain\Sharding\EmptyStrategy;
+use Gram\Domain\Sharding\EmptyShardStrategy;
 
 /**
  * Class EntityMapping
@@ -78,7 +78,7 @@ abstract class EntityMapping
         if ($tableName instanceof IShardStrategy) {
             $strategy = $tableName;
         } elseif (is_string($tableName)) {
-            $strategy = new EmptyStrategy($tableName);
+            $strategy = new EmptyShardStrategy($tableName);
         } else {
             throw new \Exception();
         }

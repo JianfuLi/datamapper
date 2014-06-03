@@ -5,7 +5,7 @@ namespace Gram\Domain\Sharding;
 
 use Gram\Domain\IShardStrategy;
 
-class EmptyStrategy implements IShardStrategy
+class EmptyShardStrategy implements IShardStrategy
 {
     protected $tableName;
 

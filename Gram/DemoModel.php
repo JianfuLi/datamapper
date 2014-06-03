@@ -6,7 +6,7 @@ class DemoModel extends EntityBase
 {
     static protected function initMetadata()
     {
-        self::table('tablename');
+        self::table(new ModShardStrategy(100));
         self::cache()
             ->provider('providerClass')
             ->expire(3600)
