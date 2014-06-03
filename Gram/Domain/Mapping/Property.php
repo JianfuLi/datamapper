@@ -19,6 +19,11 @@ class Property
      * @var string
      */
     public $type;
+
+    /**
+     * @var bool
+     */
+    public $pk = false;
     /**
      * 属性验证器
      * @var array

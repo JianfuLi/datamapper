@@ -17,6 +17,16 @@ class Metadata
      */
     public $properties;
 
+    /**
+     * @var Property
+     */
+    public $primaryKey;
+
+    /**
+     * @var Cache
+     */
+    public $cache;
+
 
     /**
      * @param $name
@@ -29,5 +39,13 @@ class Metadata
             $this->properties[$name] = new Property($name);
         }
         return $this->properties[$name];
+    }
+
+    function getCache()
+    {
+        if (is_null($this->cache)) {
+            $this->cache = new Cache();
+        }
+        return $this->cache;
     }
 } 

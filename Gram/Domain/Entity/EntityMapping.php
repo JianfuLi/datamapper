@@ -3,6 +3,7 @@
 namespace Gram\Domain\Entity;
 
 
+use Gram\Domain\Mapping\CacheMapping;
 use Gram\Domain\Mapping\Metadata;
 use Gram\Domain\Mapping\PropertyMapping;
 use Gram\Domain\IShardStrategy;
@@ -46,10 +47,22 @@ abstract class EntityMapping
      *
      * @return PropertyMapping
      */
-    static protected function property($name)
+    static protected function map($name)
     {
         $md = static::getMetadata();
         return new PropertyMapping($md->getProperty($name));
+    }
+
+    /**
+     * @param $name
+     *
+     * @return PropertyMapping
+     */
+    static protected function id($name)
+    {
+        $md = static::getMetadata();
+        $md->primaryKey = $md->getProperty($name);
+        return new PropertyMapping($md->primaryKey);
     }
 
     /**
@@ -62,7 +75,6 @@ abstract class EntityMapping
     static protected function table($tableName)
     {
         $md = static::getMetadata();
-
         if ($tableName instanceof IShardStrategy) {
             $strategy = $tableName;
         } elseif (is_string($tableName)) {
@@ -71,5 +83,14 @@ abstract class EntityMapping
             throw new \Exception();
         }
         $md->shardStrategy = $strategy;
+    }
+
+    /**
+     * @return CacheMapping
+     */
+    static protected function cache()
+    {
+        $md = static::getMetadata();
+        return new CacheMapping($md->getCache());
     }
 } 

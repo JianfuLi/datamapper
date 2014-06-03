@@ -62,4 +62,13 @@ final class Type
         return $value;
     }
 
+    /**
+     * @param $value
+     *
+     * @return mixed
+     */
+    static function toInt($value)
+    {
+        return self::convert($value, self::TYPE_INTEGER);
+    }
 } 

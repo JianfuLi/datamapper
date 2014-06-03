@@ -6,10 +6,17 @@ class DemoModel extends EntityBase
 {
     static protected function initMetadata()
     {
-        static::table('tablename');
+        self::table('tablename');
+        self::cache()
+            ->provider('providerClass')
+            ->expire(3600)
+            ->useQueryCache();
 
-        static::property('name')
+        self::id('id')
             ->type(Type::TYPE_INTEGER);
+
+        self::map('name')
+            ->type(Type::TYPE_STRING);
 
     }
 }
