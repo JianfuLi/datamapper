@@ -23,6 +23,11 @@ class Property
     /**
      * @var bool
      */
+    public $required = false;
+
+    /**
+     * @var bool
+     */
     public $pk = false;
     /**
      * 属性验证器
@@ -34,12 +39,14 @@ class Property
      *
      * @param string $name
      * @param string $type
+     * @param bool   $required
      * @param array  $validators
      */
-    function __construct($name, $type = null, $validators = array())
+    function __construct($name, $type = null, $required = false, $validators = array())
     {
         $this->name = $name;
         $this->type = $type;
+        $this->required = $required;
         $this->validators = $validators;
     }
 }

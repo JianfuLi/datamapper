@@ -44,4 +44,13 @@ class PropertyMapping
         $this->property->type = $type;
         return $this;
     }
+
+    /**
+     * @return $this
+     */
+    function required()
+    {
+        $this->property->required = true;
+        return $this;
+    }
 } 

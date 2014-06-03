@@ -13,10 +13,17 @@ class DemoModel extends EntityBase
             ->useQueryCache();
 
         self::id('id')
-            ->type(Type::TYPE_INTEGER);
+            ->type(Type::TYPE_INTEGER)
+            ->required();
 
         self::map('name')
-            ->type(Type::TYPE_STRING);
+            ->type(Type::TYPE_STRING)
+            ->required()
+            ->validator(Validator::range(3, 20));
 
+        self::map('email')
+            ->type(Type::TYPE_STRING)
+            ->required()
+            ->validator(Validator::email(30));
     }
 }
