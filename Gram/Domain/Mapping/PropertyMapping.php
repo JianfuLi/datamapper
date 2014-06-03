@@ -14,6 +14,9 @@ class PropertyMapping
      */
     protected $property;
 
+    /**
+     * @param Property $property
+     */
     function __construct(Property &$property)
     {
         $this->property = $property;

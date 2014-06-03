@@ -3,30 +3,20 @@
 namespace Gram\Domain\Mapping;
 
 
+use Gram\Domain\IShardStrategy;
+
 class Metadata
 {
-    protected $tableName;
+    /**
+     * @var IShardStrategy
+     */
+    public $shardStrategy;
 
-    protected $properties;
+    /**
+     * @var array<Property>
+     */
+    public $properties;
 
-    function __construct()
-    {
-    }
-
-    function setTableName($tableName)
-    {
-        $this->tableName = $tableName;
-    }
-
-    function getTableName()
-    {
-        return $this->tableName;
-    }
-
-    function getProperties()
-    {
-        $this->properties;
-    }
 
     /**
      * @param $name

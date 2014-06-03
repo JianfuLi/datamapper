@@ -5,6 +5,7 @@ namespace Gram\Domain;
 
 use Gram\Domain\Mapping\Metadata;
 use Gram\Domain\Mapping\PropertyMapping;
+use Gram\Domain\Sharding\EmptyStrategy;
 
 trait EntityMapping
 {
@@ -36,6 +37,14 @@ trait EntityMapping
     static protected function table($tableName)
     {
         $md = static::getMetadata();
-        $md->setTableName($tableName);
+
+        if ($tableName instanceof IShardStrategy) {
+            $strategy = $tableName;
+        } elseif (is_string($tableName)) {
+            $strategy = new EmptyStrategy($tableName);
+        } else {
+            throw new \Exception();
+        }
+        $md->shardStrategy = $strategy;
     }
 } 
