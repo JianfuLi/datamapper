@@ -28,8 +28,16 @@ class Metadata
         $this->properties;
     }
 
-    function setProperty(Property $property)
+    /**
+     * @param $name
+     *
+     * @return Property
+     */
+    function getProperty($name)
     {
-        $this->properties[$property->getName()] = $property;
+        if (!isset($this->properties[$name])) {
+            $this->properties[$name] = new Property($name);
+        }
+        return $this->properties[$name];
     }
 } 

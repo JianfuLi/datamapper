@@ -4,6 +4,7 @@ namespace Gram\Domain;
 
 
 use Gram\Domain\Mapping\Metadata;
+use Gram\Domain\Mapping\PropertyMapping;
 
 trait EntityMapping
 {
@@ -26,10 +27,10 @@ trait EntityMapping
         return static::$_md;
     }
 
-    static protected function property(IProperty $property)
+    static protected function property($name)
     {
         $md = static::getMetadata();
-        $md->setProperty($property);
+        return new PropertyMapping($md->getProperty($name));
     }
 
     static protected function table($tableName)
