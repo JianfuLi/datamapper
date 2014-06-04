@@ -29,6 +29,11 @@ class Property
      * @var bool
      */
     public $pk = false;
+
+    /**
+     * @var string
+     */
+    public $column = '';
     /**
      * 属性验证器
      * @var array
@@ -45,6 +50,7 @@ class Property
     function __construct($name, $type = null, $required = false, $validators = array())
     {
         $this->name = $name;
+        $this->column = $name;
         $this->type = $type;
         $this->required = $required;
         $this->validators = $validators;

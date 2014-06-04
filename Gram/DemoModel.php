@@ -19,6 +19,7 @@ class DemoModel extends EntityBase
         self::map('name')
             ->type(Type::TYPE_STRING)
             ->required()
+            ->column('user_name')
             ->validator(Validator::range(3, 20));
 
         self::map('email')

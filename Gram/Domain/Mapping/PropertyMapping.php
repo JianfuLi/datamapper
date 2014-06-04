@@ -53,4 +53,16 @@ class PropertyMapping
         $this->property->required = true;
         return $this;
     }
+
+    /**
+     * 
+     * @param $column
+     *
+     * @return $this
+     */
+    function column($column)
+    {
+        $this->property->column = $column;
+        return $this;
+    }
 } 
