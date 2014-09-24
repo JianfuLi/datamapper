@@ -2,7 +2,11 @@
     "name": "gram/gram",
     "type": "library",
     "description": "a simple and lightweight micro data mapper framework",
-    "keywords": ["microframework", "data mapper", "orm"],
+    "keywords": [
+        "microframework",
+        "data mapper",
+        "orm"
+    ],
     "homepage": "http://github.com/jianphu/gram",
     "license": "BSD",
     "authors": [
@@ -22,7 +26,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Gram": "."
+            "Gram": "./src"
         }
     }
 }
