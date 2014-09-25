@@ -59,8 +59,21 @@ class EntityTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($obj === $entity->obj);
     }
 
-    public function testAccessNotExistProperty()
+    /**
+     * @expectedException Gram\DataMapper\Exception\PropertyException
+     */
+    public function testReadNotExistProperty()
     {
+        $entity = new Entity();
+        $test = $entity->test;
+    }
 
+    /**
+     * @expectedException Gram\DataMapper\Exception\PropertyException
+     */
+    public function testWriteNotExistProperty()
+    {
+        $entity = new Entity();
+        $entity->test = time();
     }
 }

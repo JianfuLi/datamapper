@@ -28,7 +28,7 @@ abstract class EntityAccess extends EntityMapping
     {
         $md = static::getMetadata();
         if (!isset($md->properties[$name])) {
-            throw new PropertyException("试图访问未定义的属性“$name”");
+            throw new PropertyException('试图访问未定义的属性' . $name);
         }
 
         $methodName = 'get' . ucfirst($name);
@@ -38,7 +38,7 @@ abstract class EntityAccess extends EntityMapping
 
         $m = $md->properties[$name];
         if (is_null($m->type)) {
-            throw new TypeException("未定义属性“$name”的类型");
+            throw new TypeException('未定义属性' . $name . '的类型');
         }
         $value = self::saveGet($this->ps, $name);
         return Type::convert($value, $m->type);
@@ -55,12 +55,12 @@ abstract class EntityAccess extends EntityMapping
     {
         $md = static::getMetadata();
         if (!isset($md->properties[$name])) {
-            throw new PropertyException("试图访问未定义的属性“$name”");
+            throw new PropertyException('试图访问未定义的属性' . $name);
         }
 
         $m = $md->properties[$name];
         if (is_null($m->type)) {
-            throw new TypeException("未定义属性“$name”的类型");
+            throw new TypeException('未定义属性' . $name . '的类型');
         }
 
         $castValue = Type::convert($value, $m->type);
