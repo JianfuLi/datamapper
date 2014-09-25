@@ -1,29 +1,5 @@
 <?php
 
-class Property
-{
-}
-
-/**
- * Class ExampleEntity
- *
- * @property integer   id
- * @property string    name
- * @property string    obj
- */
-class Entity extends Gram\DataMapper\EntityBase
-{
-    /**
-     *
-     */
-    static protected function initMetadata()
-    {
-        static::id('id')->type(\Gram\DataMapper\Type::TYPE_INTEGER);
-        static::map('name')->type(\Gram\DataMapper\Type::TYPE_STRING);
-        static::map('obj')->type('Property');
-    }
-}
-
 /**
  *
  *
@@ -76,4 +52,30 @@ class EntityTest extends PHPUnit_Framework_TestCase
         $entity = new Entity();
         $entity->test = time();
     }
+}
+
+
+/**
+ * Class ExampleEntity
+ *
+ * @property integer   id
+ * @property string    name
+ * @property string    obj
+ */
+class Entity extends Gram\DataMapper\EntityBase
+{
+    /**
+     *
+     */
+    static protected function initMetadata()
+    {
+        static::id('id')->type(\Gram\DataMapper\Type::TYPE_INTEGER);
+        static::map('name')->type(\Gram\DataMapper\Type::TYPE_STRING);
+        static::map('obj')->type('Property');
+    }
+}
+
+
+class Property
+{
 }

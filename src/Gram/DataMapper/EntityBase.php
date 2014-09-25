@@ -1,7 +1,7 @@
 <?php
 namespace Gram\DataMapper;
 
-use Gram\DataMapper\Entity\EntityAccess;
+use Gram\DataMapper\Entity\Query;
 use Gram\DataMapper\Entity\EntityIterator;
 
 /**
@@ -9,7 +9,7 @@ use Gram\DataMapper\Entity\EntityIterator;
  *
  * @package Gram\DataMapper
  */
-abstract class EntityBase extends EntityAccess implements \IteratorAggregate, \ArrayAccess
+abstract class EntityBase extends Query implements \IteratorAggregate, \ArrayAccess
 {
     /**
      * @var \ReflectionClass

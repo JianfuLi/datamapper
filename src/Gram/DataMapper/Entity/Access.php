@@ -13,7 +13,7 @@ use Gram\DataMapper\Exception\PropertyException;
  *
  * @package Gram\DataMapper\Entity
  */
-abstract class EntityAccess extends EntityMapping
+abstract class Access extends Mapping
 {
     protected $ps = array();
 

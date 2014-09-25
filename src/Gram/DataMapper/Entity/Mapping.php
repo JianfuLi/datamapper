@@ -18,7 +18,7 @@ use Gram\DataMapper\Exception\NotImplementedException;
  *
  * @package Gram\DataMapper\Entity
  */
-abstract class EntityMapping
+abstract class Mapping
 {
     /**
      * @var Metadata
