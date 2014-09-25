@@ -1,5 +1,5 @@
 <?php
-namespace Gram\DataMapper;
+namespace Gram\DataMapper\Exception;
 
 class ValidatorException extends \Exception
 {

@@ -11,17 +11,20 @@ use Gram\DataMapper\Entity\EntityIterator;
  */
 abstract class EntityBase extends EntityAccess implements \IteratorAggregate, \ArrayAccess
 {
-    private static $_rc = null;
+    /**
+     * @var \ReflectionClass
+     */
+    protected static $rc = null;
 
     /**
      * @return \ReflectionClass
      */
     protected function getReflector()
     {
-        if (is_null(static::$_rc)) {
-            static::$_rc = new \ReflectionClass($this);
+        if (is_null(static::$rc)) {
+            static::$rc = new \ReflectionClass($this);
         }
-        return static::$_rc;
+        return static::$rc;
     }
 
     /**

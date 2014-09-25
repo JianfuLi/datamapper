@@ -1,6 +1,6 @@
 <?php
 
-namespace Gram\DataMapper;
+namespace Gram\DataMapper\Exception;
 
 
 class TypeException extends \Exception

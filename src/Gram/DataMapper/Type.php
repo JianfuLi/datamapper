@@ -2,18 +2,20 @@
 
 namespace Gram\DataMapper;
 
-use Gram\Exception\TypeException;
+use Gram\DataMapper\Exception\TypeException;
 
 final class Type
 {
     /**
      * 布尔值类型
+     *
      * @var string
      */
     const TYPE_BOOLEAN = 'boolean';
 
     /**
      * 整型类型
+     *
      * @var string
      */
     const TYPE_INTEGER = 'integer';
@@ -27,12 +29,14 @@ final class Type
 
     /**
      * 字符串类型
+     *
      * @var string
      */
     const TYPE_STRING = 'string';
 
     /**
      * 数组类型
+     *
      * @var string
      */
     const TYPE_ARRAY = 'array';
@@ -47,7 +51,7 @@ final class Type
      * @param $type
      *
      * @return mixed
-     * @throws \Gram\Exception\TypeException
+     * @throws TypeException
      */
     static function convert($value, $type)
     {
@@ -56,6 +60,8 @@ final class Type
             if (!($value instanceof $type)) {
                 throw new TypeException('类型错误');
             }
+        } elseif ($valueType === 'NULL' && class_exists($type)) {
+            return $value;
         } elseif ($valueType !== $type) {
             settype($value, $type);
         }

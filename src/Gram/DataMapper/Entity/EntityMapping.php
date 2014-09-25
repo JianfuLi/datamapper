@@ -3,11 +3,15 @@
 namespace Gram\DataMapper\Entity;
 
 
+use Gram\DataMapper\IShardStrategy;
+use Gram\DataMapper\Sharding\EmptyShardStrategy;
+
 use Gram\DataMapper\Mapping\CacheMapping;
 use Gram\DataMapper\Mapping\Metadata;
 use Gram\DataMapper\Mapping\PropertyMapping;
-use Gram\DataMapper\IShardStrategy;
-use Gram\DataMapper\Sharding\EmptyShardStrategy;
+
+use Gram\DataMapper\Exception\NotImplementedException;
+
 
 /**
  * Class EntityMapping
@@ -19,12 +23,15 @@ abstract class EntityMapping
     /**
      * @var Metadata
      */
-    private static $_md = null;
+    protected static $md = null;
 
     /**
-     *
+     * @throws NotImplementedException
      */
-    abstract static protected function initMetadata();
+    static protected function initMetadata()
+    {
+        throw new NotImplementedException('未实现initMetadata方法');
+    }
 
     /**
      * 获取对象元数据
@@ -33,11 +40,11 @@ abstract class EntityMapping
      */
     static function getMetadata()
     {
-        if (is_null(static::$_md)) {
-            static::$_md = new Metadata();
+        if (is_null(static::$md)) {
+            static::$md = new Metadata();
+            static::initMetadata();
         }
-
-        return static::$_md;
+        return static::$md;
     }
 
     /**
@@ -50,7 +57,8 @@ abstract class EntityMapping
     static protected function map($name)
     {
         $md = static::getMetadata();
-        return new PropertyMapping($md->getProperty($name));
+        $property = $md->getProperty($name);
+        return new PropertyMapping($property);
     }
 
     /**

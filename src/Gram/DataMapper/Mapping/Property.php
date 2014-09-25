@@ -11,11 +11,13 @@ class Property
 {
     /**
      * 属性名称
+     *
      * @var string
      */
     public $name;
     /**
      * 属性类型
+     *
      * @var string
      */
     public $type;
@@ -36,9 +38,10 @@ class Property
     public $column = '';
     /**
      * 属性验证器
+     *
      * @var array
      */
-    public $validators;
+    public $validators = array();
 
     /**
      *

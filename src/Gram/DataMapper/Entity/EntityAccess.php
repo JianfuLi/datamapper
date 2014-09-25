@@ -3,53 +3,64 @@
 namespace Gram\DataMapper\Entity;
 
 use Gram\DataMapper\Type;
+use Gram\DataMapper\Exception\TypeException;
+use Gram\DataMapper\Exception\PropertyException;
 
 /**
  * Class EntityAccess
+ *
+ * 对象属性访问基类
  *
  * @package Gram\DataMapper\Entity
  */
 abstract class EntityAccess extends EntityMapping
 {
-    private $_ps;
+    protected $ps = array();
 
     /**
      * @param $name
      *
      * @return null
-     * @throws \Exception
+     * @throws PropertyException
+     * @throws TypeException
      */
     function __get($name)
     {
         $md = static::getMetadata();
         if (!isset($md->properties[$name])) {
-            throw new \Exception("试图访问未定义的属性“$name”");
+            throw new PropertyException("试图访问未定义的属性“$name”");
         }
 
         $methodName = 'get' . ucfirst($name);
         if (method_exists($this, $methodName)) {
             return $this->$methodName();
         }
-        return self::_saveGet($this->_ps, $name);
+
+        $m = $md->properties[$name];
+        if (is_null($m->type)) {
+            throw new TypeException("未定义属性“$name”的类型");
+        }
+        $value = self::saveGet($this->ps, $name);
+        return Type::convert($value, $m->type);
     }
 
     /**
      * @param $name
      * @param $value
      *
-     * @return mixed
-     * @throws \Exception
+     * @throws PropertyException
+     * @throws TypeException
      */
     function __set($name, $value)
     {
         $md = static::getMetadata();
         if (!isset($md->properties[$name])) {
-            throw new \Exception("试图访问未定义的属性“$name”");
+            throw new PropertyException("试图访问未定义的属性“$name”");
         }
 
         $m = $md->properties[$name];
         if (is_null($m->type)) {
-            throw new \Exception("未定义属性“$name”的类型");
+            throw new TypeException("未定义属性“$name”的类型");
         }
 
         $castValue = Type::convert($value, $m->type);
@@ -61,11 +72,11 @@ abstract class EntityAccess extends EntityMapping
         if (method_exists($this, $methodName)) {
             return $this->$methodName($castValue);
         } else {
-            $this->_ps[$name] = $castValue;
+            $this->ps[$name] = $castValue;
         }
     }
 
-    private static function _saveGet(array $arr, $index, $default = null)
+    protected static function saveGet(array $arr, $index, $default = null)
     {
         return isset($arr[$index]) ? $arr[$index] : $default;
     }
