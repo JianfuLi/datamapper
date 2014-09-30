@@ -27,6 +27,18 @@ class Metadata
      */
     public $cache;
 
+    /**
+     * @var string
+     */
+    public $className;
+
+    /**
+     * @param $className
+     */
+    function __construct($className)
+    {
+        $this->className = $className;
+    }
 
     /**
      * @param $name

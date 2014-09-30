@@ -13,4 +13,9 @@ class EmptyShardStrategy implements IShardStrategy
     {
         $this->tableName = $tableName;
     }
+
+    function getTableName($args)
+    {
+        return $this->tableName;
+    }
 }

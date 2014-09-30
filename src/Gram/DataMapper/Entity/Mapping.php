@@ -41,7 +41,7 @@ abstract class Mapping
     static function getMetadata()
     {
         if (is_null(static::$md)) {
-            static::$md = new Metadata();
+            static::$md = new Metadata(__CLASS__);
             static::initMetadata();
         }
         return static::$md;

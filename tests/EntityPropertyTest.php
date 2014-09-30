@@ -69,6 +69,7 @@ class Entity extends Gram\DataMapper\EntityBase
      */
     static protected function initMetadata()
     {
+        static::table('');
         static::id('id')->type(\Gram\DataMapper\Type::TYPE_INTEGER);
         static::map('name')->type(\Gram\DataMapper\Type::TYPE_STRING);
         static::map('obj')->type('Property');

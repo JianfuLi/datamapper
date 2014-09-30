@@ -10,12 +10,12 @@
 
 namespace Gram\DataMapper\Entity;
 
-use Gram\DataMapper\Database\Builder;
+use Gram\DataMapper\Database\QueryBuilder;
 
 abstract class Query extends Access
 {
     public static function query()
     {
-        return new Builder(static::getMetadata());
+        return new QueryBuilder(static::getMetadata());
     }
 } 
